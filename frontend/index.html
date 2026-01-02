@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Skill Extraction using NLP</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Skill Extraction Interface</h2>
+
+<input type="file" id="resume">
+<input type="file" id="jd">
+
+<button onclick="analyze()">Analyze</button>
+
+<div class="container">
+  <div>
+    <h3>Extracted Skills</h3>
+    <div id="skills"></div>
+  </div>
+
+  <div>
+    <canvas id="chart"></canvas>
+    <p>Total Skills: <span id="total"></span></p>
+    <p>Matched Skills: <span id="matched"></span></p>
+    <p>Match %: <span id="percent"></span>%</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
