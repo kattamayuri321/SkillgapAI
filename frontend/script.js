@@ -1,38 +1,45 @@
-let chart;
+fetch("http://127.0.0.1:5000/analyze")
+.then(res => res.json())
+.then(data => {
 
-function analyze() {
-  const formData = new FormData();
-  formData.append("resume", document.getElementById("resume").files[0]);
-  formData.append("jd", document.getElementById("jd").files[0]);
+    document.getElementById("matchPercent").innerText =
+        data.percentages.matched + "%";
 
-  fetch("http://127.0.0.1:5000/extract", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("skills").innerHTML =
-      data.resume_skills.map(s => `<span>${s}</span>`).join("");
+    document.getElementById("matchedCount").innerText = data.matched.length;
+    document.getElementById("partialCount").innerText = data.partial.length;
+    document.getElementById("missingCount").innerText = data.missing.length;
 
-    document.getElementById("total").innerText = data.total_skills;
-    document.getElementById("matched").innerText = data.matched_count;
-    document.getElementById("percent").innerText = data.match_percentage;
+    const matrixDiv = document.getElementById("matrix");
 
-    drawChart(data.matched_count, data.total_skills);
-  });
-}
+    matrixDiv.innerHTML = "<div></div>";
+    data.job_skills.forEach(s => {
+        matrixDiv.innerHTML += `<b>${s}</b>`;
+    });
 
-function drawChart(matched, total) {
-  const ctx = document.getElementById("chart");
-  if (chart) chart.destroy();
+    data.user_skills.forEach((u, i) => {
+        matrixDiv.innerHTML += `<b>${u}</b>`;
+        data.matrix[i].forEach(val => {
+            let cls = val >= 0.75 ? "high" : val >= 0.4 ? "medium" : "low";
+            matrixDiv.innerHTML += `<div class="cell ${cls}">${val}</div>`;
+        });
+    });
 
-  chart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: ["Matched", "Unmatched"],
-      datasets: [{
-        data: [matched, total - matched]
-      }]
-    }
-  });
-}
+    new Chart(document.getElementById("skillChart"), {
+        type: "doughnut",
+        data: {
+            labels: ["Matched", "Partial", "Missing"],
+            datasets: [{
+                data: [
+                    data.percentages.matched,
+                    data.percentages.partial,
+                    data.percentages.missing
+                ],
+                backgroundColor: ["green", "orange", "red"]
+            }]
+        },
+        options: {
+            cutout: "65%",
+            plugins: { legend: { position: "bottom" } }
+        }
+    });
+});

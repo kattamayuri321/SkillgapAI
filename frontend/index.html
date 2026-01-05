@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Skill Extraction using NLP</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Milestone 3</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<h2>Skill Extraction Interface</h2>
-
-<input type="file" id="resume">
-<input type="file" id="jd">
-
-<button onclick="analyze()">Analyze</button>
-
-<div class="container">
-  <div>
-    <h3>Extracted Skills</h3>
-    <div id="skills"></div>
-  </div>
-
-  <div>
-    <canvas id="chart"></canvas>
-    <p>Total Skills: <span id="total"></span></p>
-    <p>Matched Skills: <span id="matched"></span></p>
-    <p>Match %: <span id="percent"></span>%</p>
-  </div>
+<div class="header">
+    Milestone 3: Skill Gap Analysis and Similarity Matching Module
 </div>
+
+<div class="cards">
+    <div class="card purple">
+        <h1 id="matchPercent">0%</h1>
+        <p>Overall Match</p>
+    </div>
+    <div class="card green">
+        <h1 id="matchedCount">0</h1>
+        <p>Matched Skills</p>
+    </div>
+    <div class="card orange">
+        <h1 id="partialCount">0</h1>
+        <p>Partial Matches</p>
+    </div>
+    <div class="card red">
+        <h1 id="missingCount">0</h1>
+        <p>Missing Skills</p>
+    </div>
+</div>
+
+<h2>Similarity Matrix</h2>
+<div id="matrix"></div>
+
+<h2>Skill Distribution</h2>
+<canvas id="skillChart" width="280" height="280"></canvas>
 
 <script src="script.js"></script>
 </body>

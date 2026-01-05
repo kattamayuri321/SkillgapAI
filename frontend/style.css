@@ -1,17 +1,55 @@
 body {
-  font-family: Arial;
-  padding: 20px;
+    font-family: Arial;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-  display: flex;
-  margin-top: 20px;
+.header {
+    background: #6a1b9a;
+    color: white;
+    padding: 15px;
+    font-size: 20px;
 }
 
-#skills span {
-  background: #e0f2f1;
-  padding: 6px 10px;
-  margin: 5px;
-  border-radius: 15px;
-  display: inline-block;
+.cards {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.card {
+    background: white;
+    width: 22%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.purple h1 { color: purple; }
+.green h1 { color: green; }
+.orange h1 { color: orange; }
+.red h1 { color: red; }
+
+#matrix {
+    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 120px);
+    gap: 10px;
+}
+
+.cell {
+    padding: 10px;
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+}
+
+.high { background: green; }
+.medium { background: orange; }
+.low { background: red; }
+
+canvas {
+    display: block;
+    margin: auto;
 }
